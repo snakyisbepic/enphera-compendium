@@ -17,10 +17,9 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 
 # Install dependencies (use npm; package-lock.json will be generated on first install).
-COPY package.json ./
+COPY package.json package-lock.json ./
 COPY prisma ./prisma
-COPY postinstall.sh /usr/local/bin/postinstall 2>/dev/null || true
-RUN npm install --no-audit --no-fund
+RUN npm ci --no-audit --no-fund
 
 # Copy the rest of the source.
 COPY . .
