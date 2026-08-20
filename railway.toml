@@ -1,14 +1,13 @@
-# Railway deployment config — https://docs.railway.app
+# Railway deployment configuration
+# https://docs.railway.com/
 
 [build]
 builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"
 
 [deploy]
-startCommand = "sh -c 'if [ ! -f /data/enphera.db ]; then cp seed.db /data/enphera.db; fi; mkdir -p /data/content; cp -rn content/* /data/content/ 2>/dev/null || true; node server.js'"
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 3
 
-[healthcheck]
-path = "/api/chapters"
-interval = 30
-timeout = 5
+healthcheckPath = "/api/chapters"
+healthcheckTimeout = 30
