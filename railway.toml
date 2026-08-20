@@ -1,22 +1,13 @@
 # Railway deployment config — https://docs.railway.app
-# Usage:
-#   1. railway init
-#   2. railway up
-#   3. railway volume add          # mount a volume at /data
-#   4. Set env vars (DATABASE_URL, ADMIN_PIN, SESSION_SECRET, CONTENT_DIR, NODE_ENV) in the Railway dashboard.
-#   5. railway up
 
 [build]
 builder = "DOCKERFILE"
 
 [deploy]
-# Railway auto-detects Node + Next.js. The package.json's `postinstall` hook
-# generates the Prisma client automatically.
-startCommand = "npm run start"
+startCommand = "sh -c 'if [ ! -f /data/enphera.db ]; then cp seed.db /data/enphera.db; fi; mkdir -p /data/content; cp -rn content/* /data/content/ 2>/dev/null || true; node server.js'"
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 3
 
-# Optional healthcheck
 [healthcheck]
 path = "/api/chapters"
 interval = 30
