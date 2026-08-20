@@ -1,0 +1,23 @@
+# Railway deployment config — https://docs.railway.app
+# Usage:
+#   1. railway init
+#   2. railway up
+#   3. railway volume add          # mount a volume at /data
+#   4. Set env vars (DATABASE_URL, ADMIN_PIN, SESSION_SECRET, CONTENT_DIR, NODE_ENV) in the Railway dashboard.
+#   5. railway up
+
+[build]
+builder = "NIXPACKS"
+
+[deploy]
+# Railway auto-detects Node + Next.js. The package.json's `postinstall` hook
+# generates the Prisma client automatically.
+startCommand = "npm run start"
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 3
+
+# Optional healthcheck
+[healthcheck]
+path = "/api/chapters"
+interval = 30
+timeout = 5
