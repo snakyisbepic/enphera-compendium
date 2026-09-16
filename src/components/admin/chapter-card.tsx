@@ -6,6 +6,7 @@ import {
   Trash2,
   Eye,
   Upload,
+  Download,
   Loader2,
   ChevronUp,
   ChevronDown,
@@ -306,6 +307,21 @@ export function ChapterCard({
                 </div>
               </DialogContent>
             </Dialog>
+
+            {/* Download raw .md */}
+            <Button
+              asChild
+              size="sm"
+              variant="outline"
+              className="h-7 text-xs border-[color:var(--enphera-border)] bg-transparent text-[color:var(--enphera-text)] hover:bg-white/5"
+            >
+              <a
+                href={`/api/admin/chapters/${chapter.id}/download`}
+                download={chapter.filename}
+              >
+                <Download size={14} /> Download
+              </a>
+            </Button>
 
             {/* Up / Down buttons (alternative to drag) */}
             <div className="inline-flex rounded-md border border-[color:var(--enphera-border)] overflow-hidden">

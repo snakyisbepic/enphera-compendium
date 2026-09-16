@@ -99,6 +99,12 @@ export async function readChapterFile(filename: string) {
   }
 }
 
+/** Read a chapter file's raw, unparsed contents (frontmatter included) as-is on disk. */
+export async function readRawChapterFile(filename: string): Promise<string> {
+  const resolved = filePathFor(filename)
+  return fs.readFile(resolved, 'utf8')
+}
+
 /** Write a chapter file to disk (overwrite or create). */
 export async function writeChapterFile(
   filename: string,
